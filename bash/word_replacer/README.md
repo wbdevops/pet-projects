@@ -1,6 +1,6 @@
 # Description:
 
-A bash script that will iterate over files (recursively in a folder) and change certain values in them. 
+A bash script that will iterate over files (recursively in a folder) and change certain values in them
 
 ## Takes parameters:
 
@@ -11,11 +11,11 @@ A bash script that will iterate over files (recursively in a folder) and change 
 ```
 ### Requirements:
 ```
-Open the terminal. Go to the directory where you want to execute your script.
-Create a file with .sh extension.
-Write the script in the file using an editor.
-Make the script executable with command chmod +x <fileName>.
-Run the script using ./<fileName>.
+- Open the terminal. Go to the directory where you want to execute your script
+- Create a file with .sh extension
+- Write the script in the file using an editor
+- Make the script executable with command chmod +x <fileName>
+- Run the script using ./<fileName>
 ```
 
 
