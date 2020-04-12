@@ -1,6 +1,6 @@
 # Description:
 
-sequence of steps describing project - Jira Service Desk on GCP Platform (NGINX as reverse proxy)
+My sequence of steps describing project - Jira Service Desk on GCP Platform (NGINX as reverse proxy)
 
 ## Requeriments:
 
@@ -36,21 +36,21 @@ sequence of steps describing project - Jira Service Desk on GCP Platform (NGINX 
     --scopes cloud-platform
     
 #Installing Jira Software:
-  sudo yum update 
-  sudo yum upgrade
-  sudo yum -y install wget
-  sudo yum -y install mysql
-  wget https://www.atlassian.com/software/jira/downloads/binary/atlassian-servicedesk-4.8.0-x64.bin #choose last release 
-  chmod a+x atlassian-servicedesk-4.8.0-x64.bin #make executable 
-  sudo ./atlassian-servicedesk-4.8.0-x64.bin 
-  rm atlassian-servicedesk-4.8.0-x64.bin
-  wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.46.tar.gz #download connector at Jira instance
-  tar -xzf mysql-connector-java-5.1.46.tar.gz
-  sudo cp ./mysql-connector-java-5.1.46/mysql-connector-java-5.1.46-bin.jar /opt/atlassian/jira/lib/.
-  rm -rf mysql-connector-java-5.1.46d mysql-connector-java-5.1.46.tar.gz
-  wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy #download the Cloud SQL Proxy
-  chmod +x cloud_sql_proxy #make executable
-  sudo cp cloud_sql_proxy /usr/local/bin/. #Copy the proxy binary to a local directory
+  $ sudo yum update 
+  $ sudo yum upgrade
+  $ sudo yum -y install wget
+  $ sudo yum -y install mysql
+  $ wget https://www.atlassian.com/software/jira/downloads/binary/atlassian-servicedesk-4.8.0-x64.bin #choose last release 
+  $ chmod a+x atlassian-servicedesk-4.8.0-x64.bin #make executable 
+  $ sudo ./atlassian-servicedesk-4.8.0-x64.bin 
+  $ rm atlassian-servicedesk-4.8.0-x64.bin
+  $ wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.46.tar.gz #download connector at Jira instance
+  $ tar -xzf mysql-connector-java-5.1.46.tar.gz
+  $ sudo cp ./mysql-connector-java-5.1.46/mysql-connector-java-5.1.46-bin.jar /opt/atlassian/jira/lib/.
+  $ rm -rf mysql-connector-java-5.1.46d mysql-connector-java-5.1.46.tar.gz
+  $ wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy #download the Cloud SQL Proxy
+  $ chmod +x cloud_sql_proxy #make executable
+  $ sudo cp cloud_sql_proxy /usr/local/bin/. #Copy the proxy binary to a local directory
   
 #Open sudo nano /usr/lib/systemd/system/cloud_sql_proxy.service and add the following configuration to the file:
   
@@ -71,7 +71,7 @@ sequence of steps describing project - Jira Service Desk on GCP Platform (NGINX 
 #Save and close the file.
 
 #Create a new file called jira.service 
-  sudo nano /usr/lib/systemd/system/jira.service
+  $ sudo nano /usr/lib/systemd/system/jira.service
   
 #Add the following configuration to the file
 
@@ -91,15 +91,15 @@ sequence of steps describing project - Jira Service Desk on GCP Platform (NGINX 
 #Save and close the file.
 
 #Enable the Jira and Cloud SQL Proxy services
-  sudo systemctl daemon-reload
-  sudo systemctl enable jira
-  sudo systemctl enable cloud_sql_proxy
+  $ sudo systemctl daemon-reload
+  $ sudo systemctl enable jira
+  $ sudo systemctl enable cloud_sql_proxy
   
 #Start Jira service 
-  sudo systemctl start jira
+  $ sudo systemctl start jira
   
 #Starting the MySQL session
-  mysql -u root -p --host 127.0.0.1 -P 3306
+  $mysql -u root -p --host 127.0.0.1 -P 3306
     CREATE Database [DATABASE_NAME] CHARACTER SET utf8 COLLATE utf8_bin;
     CREATE USER '[USERNAME]'@'%' IDENTIFIED BY '[PASSWORD]';
     GRANT ALL PRIVILEGES ON [DATABASE_NAME] . * TO '[USERNAME]'@'%';
@@ -107,9 +107,9 @@ sequence of steps describing project - Jira Service Desk on GCP Platform (NGINX 
     EXIT;
     
 #NGINX 
-  sudo yum install epel-release mc net-tools
-  sudo yum install yum-utils #installing pakets for yum-repository
-  sudo nano /etc/yum.repos.d/nginx.repo 
+  $ sudo yum install epel-release mc net-tools
+  $ sudo yum install yum-utils #installing pakets for yum-repository
+  $ sudo nano /etc/yum.repos.d/nginx.repo 
   
 #Add the following configuration to the file /etc/yum.repos.d/nginx.repo:
 
@@ -130,20 +130,20 @@ sequence of steps describing project - Jira Service Desk on GCP Platform (NGINX 
   module_hotfixes=true
 
 #Install NGINX 
-  sudo yum install nginx
-  sudo systemctl enable nginx
-  sudo nano /etc/nginx/conf.d/default.conf #Configuration in file default.conf
-  sudo setsebool -P httpd_can_network_connect 1 #Permit NGINX for accessing to port connect with connector 
+  $ sudo yum install nginx
+  $ sudo systemctl enable nginx
+  $ sudo nano /etc/nginx/conf.d/default.conf #Configuration in file default.conf
+  $ sudo setsebool -P httpd_can_network_connect 1 #Permit NGINX for accessing to port connect with connector 
   
 #Install Certbot
-  sudo yum -y install yum-utils
-  sudo yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional
-  sudo yum install certbot python2-certbot-nginx
-  sudo certbot certonly --nginx -d your_domain
-  sudo systemctl restart nginx
+  $ sudo yum -y install yum-utils
+  $ sudo yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional
+  $ sudo yum install certbot python2-certbot-nginx
+  $ sudo certbot certonly --nginx -d your_domain
+  $ sudo systemctl restart nginx
   
   #Optional - auto renewal of the certificate
-  sudo echo "0 0,12 * * * root python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew" | sudo tee -a /etc/crontab > /dev/null
+  $ sudo echo "0 0,12 * * * root python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew" | sudo tee -a /etc/crontab > /dev/null
   
 #Configure the Connector - /opt/atlassian/jira/conf/server.xml
     comment out "DEFAULT - Direct connector with no proxy" for this put before def connector "<!--", and at the end of the text "-->"
@@ -151,7 +151,7 @@ sequence of steps describing project - Jira Service Desk on GCP Platform (NGINX 
     you can copy "HTTP - Proxying Jira via Apache or Nginx over HTTP" and add port="8081" for troubleshooting
     
 #After changes
-  sudo systemctl stop jira
-  sudo systemctl start jira
+  $ sudo systemctl stop jira
+  $ sudo systemctl start jira
 
 ```
