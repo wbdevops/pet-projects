@@ -155,3 +155,10 @@ My sequence of steps describing project - Jira Service Desk on GCP Platform (NGI
   $ sudo systemctl start jira
 
 ```
+## Useful links
+```
+https://certbot.eff.org/lets-encrypt/centosrhel7-nginx
+https://centos.name/?page/tipsandtricks/SelinuxBooleans
+https://confluence.atlassian.com/jirakb/configure-jira-server-to-run-behind-a-nginx-reverse-proxy-426115340.html
+
+```
