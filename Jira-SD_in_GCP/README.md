@@ -5,12 +5,12 @@ sequence of steps describing project - Jira Service Desk on GCP Platform (NGINX 
 ## Requeriments:
 
 ```
-- n1-standart-2 instance (CentOS 7)
-- db-n1-standart-1 Cloud SQL instance (MySQL 5.7)
-- Cloud DNS Zone
+- n1-standart-2 instance (CentOS 7) (Allow full access to all Cloud APIs for service account)
+- db-n1-standart-1 Cloud SQL instance (MySQL 5.7) (Enable Cloud SQL API. Create service account and add permission to - Cloud SQL Admin)
+- Cloud DNS Zone (create zone with A record - external ip of CentOS instance)
 - Firewall rules that allow HTTP,HTTPS to VPC network
-- External IP addresses
 - VPC Network (optional)
+- Register your domain name and add nameservers (my.freenom.com for example)
 ```
 ### Sequrnce of commands:
 ```
