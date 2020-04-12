@@ -157,7 +157,7 @@ My sequence of steps describing project - Jira Service Desk on GCP Platform (NGI
 ```
 ## Useful links
 ```
-Certbot Instruction []: - https://certbot.eff.org/lets-encrypt/centosrhel7-nginx
+Certbot Instruction - https://certbot.eff.org/lets-encrypt/centosrhel7-nginx
 SELinux - https://centos.name/?page/tipsandtricks/SelinuxBooleans
 Jira behind a NGINX - https://confluence.atlassian.com/jirakb/configure-jira-server-to-run-behind-a-nginx-reverse-proxy-426115340.html
 
