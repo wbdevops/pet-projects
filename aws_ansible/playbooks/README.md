@@ -1,8 +1,8 @@
-``
-Requariments: 
-``
 
+## Requirements: 
+`
  - ansible file "hosts" must have `local`record like:
+ 
 ```
            [local]
            
